@@ -1,0 +1,62 @@
+﻿@page "/Projects"
+@using System.Reactive
+@using System.Reactive.Linq
+@using Website.Core.Abstractions.Events
+@using global::Projects.Shared.DTOs
+@using global::Projects.Shared.Events
+
+@inject HttpClient Client
+
+<h3>Projects</h3>
+
+@if (!_projects.Any())
+{
+    <p>No projects found.</p>
+}
+else
+{
+    <ul>
+        @foreach (var project in _projects)
+        {
+            <li>@project.Name - @project.Description</li>
+        }
+    </ul>
+}
+
+@code {
+
+    [Inject]
+    IEventService Events { get; set; } = null!;
+
+    readonly List<ProjectDto> _projects = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var projects = await Client.GetFromJsonAsync<ProjectDto[]>("api/projects");
+
+        if (projects != null)
+        {
+            _projects.AddRange(projects);
+        }
+
+        Events.OfType<ProjectCreatedEvent>().SelectMany(ProjectCreated).Subscribe();
+    }
+
+    private IObservable<Unit> ProjectCreated(ProjectCreatedEvent e)
+    {
+        Console.WriteLine(e.ToString());
+
+        return Observable.FromAsync(async () =>
+        {
+            _projects.Add(new ProjectDto
+                {
+                    Id = e.Id,
+                    Name = e.Name,
+                    Description = e.Description,
+                    Link = e.Link
+                });
+
+            await InvokeAsync(StateHasChanged);
+        });
+    }
+}

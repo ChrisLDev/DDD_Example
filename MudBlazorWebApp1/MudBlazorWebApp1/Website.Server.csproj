@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Website.Core.Abstractions\Website.Core.Abstractions.csproj" />
+    <ProjectReference Include="..\Core\Website.Core.Server\Website.Core.Server.csproj" />
+    <ProjectReference Include="..\Frameworks\Projects\Projects.Api\Projects.Api.csproj" />
+    <ProjectReference Include="..\Frameworks\Projects\Projects.Infrastructure\Projects.Infrastructure.csproj" />
+    <ProjectReference Include="..\MudBlazorWebApp1.Client\Website.Client.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0" />
+  </ItemGroup>
+
+</Project>

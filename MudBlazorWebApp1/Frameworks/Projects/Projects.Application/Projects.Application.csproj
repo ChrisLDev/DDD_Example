@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Commands\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Core\Website.Core.Abstractions\Website.Core.Abstractions.csproj" />
+    <ProjectReference Include="..\Projects.Domain\Projects.Domain.csproj" />
+    <ProjectReference Include="..\Projects.Shared\Projects.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
