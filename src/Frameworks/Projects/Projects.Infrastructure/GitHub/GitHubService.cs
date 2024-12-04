@@ -10,13 +10,13 @@ namespace Projects.Infrastructure.GitHub
 			var repos = await client.GetRepositories(username, token);
 
 			var projects = repos?
-				.Select(x => new Project
-				{
-					Id = x.Id,
-					Name = x.Name,
-					Description = x.Description,
-					Link = x.Link,
-				})
+				.Select(x => new Project(
+				
+					x.Id,
+					x.Name,
+					x.Description,
+					x.Link
+				))
 				.ToArray();
 
 			return projects ?? [];
